@@ -28,12 +28,11 @@ public class KebunSafariInMemoryService implements KebunSafariService{
 
     @Override
     public KebunSafariModel getKebunSafariByIdKebunSafari(String idKebunSafari){
-        KebunSafariModel ksm_model = getKebunSafariList().get(0);
-        List <KebunSafariModel> list_ksm = getKebunSafariList();
-        for (KebunSafariModel kbn : list_ksm ){
-            if(kbn.getIdKebunSafari().equals(idKebunSafari)){
-                ksm_model = kbn;
+        KebunSafariModel target = new KebunSafariModel();
+        for (KebunSafariModel i : listKebunSafari ){
+            if(i.getIdKebunSafari().equals(idKebunSafari)){
+                target = i;
             }
         }
-        return ksm_model;    }
+        return target;    }
 }

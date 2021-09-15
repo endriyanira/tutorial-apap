@@ -59,4 +59,9 @@ public class KebunSafariController{
 
         //Mereturn template html yang dipakai
         return "detail-kebun-safari";}
+
+
+
+
+
 }
