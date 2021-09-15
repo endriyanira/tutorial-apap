@@ -34,5 +34,28 @@ public class KebunSafariInMemoryService implements KebunSafariService{
                 target = i;
             }
         }
-        return target;    }
+        return target;
+    }
+
+    @Override
+    public void updateKebunSafari(String idKebunSafari, String noTelepon){
+        KebunSafariModel idcheck = getKebunSafariByIdKebunSafari(idKebunSafari);
+        idcheck.setNoTelepon(noTelepon);
+    }
+
+    @Override
+    public void deleteKebunSafari(String idKebunSafari){
+        KebunSafariModel idcheck = getKebunSafariByIdKebunSafari(idKebunSafari);
+        int idx = listKebunSafari.indexOf(idcheck);
+        listKebunSafari.remove(idx);
+    }
+//
+    @Override
+    public List<KebunSafariModel> deleteAllKebun(){
+        if(listKebunSafari.size() != 0){
+            listKebunSafari.clear();
+        }
+        return listKebunSafari;
+    }
+
 }

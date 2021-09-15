@@ -78,12 +78,43 @@ public class KebunSafariController{
 
     }
 
+    @RequestMapping("/kebun-safari/update/{id}")
+    public String updateKebunSafari(
+        @PathVariable(value = "id") String idKebunSafari,
+        @RequestParam(value= "noTelepon") String noTelepon,
+        Model model){
 
+        // Memanggil KebunSafariService
+        kebunSafariService.updateKebunSafari(idKebunSafari, noTelepon);
 
+        // Menambahkan variable KebunSafari ke "KebunSafari" untuk dirender ke Thymeleaf
+        model.addAttribute("id", idKebunSafari);
+        model.addAttribute("noTelepon", noTelepon);
 
+        //Mereturn data
+        return "view-kebun-safari-update";
+    }
 
+    @RequestMapping("/kebun-safari/delete/{id}")
+    public String deleteKebunSafari(
+            @PathVariable(value="id") String idKebunSafari,
+            Model model){
 
+        //Memanggil KebunSafariService
+        kebunSafariService.deleteKebunSafari(idKebunSafari);
 
+        //Menambahkan variable KebunSafari ke "Kebun Safari" untuk dirender pada Thymeleaf
+        model.addAttribute("id", idKebunSafari);
 
+        // Mereturn data
+        return "view-kebun-safari-delete";
+    }
+
+//    @RequestMapping("/kebun-safari/delete/all")
+//    public String deleteAll(Model model){
+//        List<KebunSafariModel> listKebunSafari = KebunSafariService.deleteAllKebun();
+//        model.addAttribute("listKebunSafari", listKebunSafari);
+//        return "view-delete-all";
+//    }
 
 }
