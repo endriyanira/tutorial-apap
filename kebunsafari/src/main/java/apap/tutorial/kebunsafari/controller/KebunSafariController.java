@@ -43,7 +43,7 @@ public class KebunSafariController{
         List<KebunSafariModel> listKebunSafari = kebunSafariService.getKebunSafariList();
 
         // Menambahkan List untuk dirender di Thymeleaf
-        model.addAttribute("ListKebunSafari", listKebunSafari);
+        model.addAttribute("listKebunSafari", listKebunSafari);
 
         // Mereturn template html yang dipakai
         return "get-all-kebun-safari";
@@ -58,7 +58,8 @@ public class KebunSafariController{
         model.addAttribute("kebunSafari", kebunSafari);
 
         //Mereturn template html yang dipakai
-        return "detail-kebun-safari";}
+        return "detail-kebun-safari";
+    }
 
 
 

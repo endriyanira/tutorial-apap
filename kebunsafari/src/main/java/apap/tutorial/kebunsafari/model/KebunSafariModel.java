@@ -6,6 +6,10 @@ public class KebunSafariModel {
     private String alamat;
     private String noTelepon;
 
+    public KebunSafariModel(){
+
+    }
+
     public KebunSafariModel(String idKebunSafari, String namaKebunSafari, String alamat, String noTelepon) {
         this.idKebunSafari = idKebunSafari;
         this.namaKebunSafari = namaKebunSafari;
