@@ -4,6 +4,8 @@ import apap.tutorial.kebunsafari.service.KebunSafariService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
@@ -51,7 +53,7 @@ public class KebunSafariController{
 
     @RequestMapping("/kebun-safari")
     public String getKebunSafariById(@RequestParam(value="id", required = true) String idKebunSafari, Model model){
-        //Mendapatkan Objek Kebun Safari sesui dengan ID
+        //Mendapatkan Objek Kebun Safari sesuai dengan ID
         KebunSafariModel kebunSafari = kebunSafariService.getKebunSafariByIdKebunSafari(idKebunSafari);
 
         //Menambahkan objek untuk dirender di Thymeleaf
@@ -60,6 +62,25 @@ public class KebunSafariController{
         //Mereturn template html yang dipakai
         return "detail-kebun-safari";
     }
+
+    @GetMapping("/kebun-safari/view/{id}")
+    public String viewKebunSafari(
+            @PathVariable(value="id", required = true) String idKebunSafari, Model model) {
+
+        //Mendapatkan Objek Kebun Safari sesuai dengan ID
+        KebunSafariModel kebunSafari = kebunSafariService.getKebunSafariByIdKebunSafari(idKebunSafari);
+
+        //Menambahkan objek untuk dirender di Thymeleaf
+        model.addAttribute("kebunSafari", kebunSafari);
+
+        //Mereturn data
+        return "detail-kebun-safari";
+
+    }
+
+    
+
+
 
 
 
