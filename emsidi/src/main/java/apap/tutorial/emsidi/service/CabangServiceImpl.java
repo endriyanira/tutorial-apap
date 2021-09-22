@@ -51,20 +51,25 @@ public class CabangServiceImpl implements CabangService{
 
     @Override
     public boolean checkWaktuTutupCabang(Long noCabang){
-        CabangModel cabang = null;
         CabangModel cabang_ = getCabangByNoCabang(noCabang);
         //Dapatkan waktubuka dan tutup dari cabang pegawai
         LocalTime waktubuka = cabang_.getWaktuBuka();
         LocalTime waktututup = cabang_.getWaktuTutup();
 
+        if(LocalTime.now().isAfter(waktubuka) && LocalTime.now().isAfter(waktututup)){
+
+            return true;
+        }
+        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isBefore(waktututup)){
+            return true;
+        }
         if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isAfter(waktututup)){
             return true;
         }
-        if(LocalTime.now().isAfter(waktubuka) && LocalTime.now().isBefore(waktututup)){
-            return true;
+        else{
+            return false;
         }
 
-        return false;
     }
 
     @Override

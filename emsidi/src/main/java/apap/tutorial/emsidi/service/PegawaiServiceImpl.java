@@ -63,11 +63,15 @@ public class PegawaiServiceImpl implements PegawaiService {
         LocalTime waktubuka = pegawai.getCabang().getWaktuBuka();
         LocalTime waktututup = pegawai.getCabang().getWaktuTutup();
 
-        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isAfter(waktututup)){
+        if(LocalTime.now().isAfter(waktubuka) && LocalTime.now().isAfter(waktututup)){
             pegawaiDb.save(pegawai);
             return pegawai;
         }
-        if(LocalTime.now().isAfter(waktubuka) && LocalTime.now().isBefore(waktututup)){
+        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isBefore(waktututup)){
+            pegawaiDb.save(pegawai);
+            return pegawai;
+        }
+        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isAfter(waktututup)){
             pegawaiDb.save(pegawai);
             return pegawai;
         }
@@ -78,15 +82,20 @@ public class PegawaiServiceImpl implements PegawaiService {
     public PegawaiModel deletePegawai(long noPegawai){
         PegawaiModel pegawai_ = null;
         PegawaiModel pegawai = getPegawaiByNoPegawai(noPegawai);
+
         //Dapatkan waktubuka dan tutup dari cabang pegawai
         LocalTime waktubuka = getPegawaiByNoPegawai(noPegawai).getCabang().getWaktuBuka();
         LocalTime waktututup = getPegawaiByNoPegawai(noPegawai).getCabang().getWaktuTutup();
 
-        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isAfter(waktututup)){
+        if(LocalTime.now().isAfter(waktubuka) && LocalTime.now().isAfter(waktututup)){
             pegawaiDb.delete(getPegawaiByNoPegawai(noPegawai));
             return pegawai;
         }
-        if(LocalTime.now().isAfter(waktubuka) && LocalTime.now().isBefore(waktututup)){
+        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isBefore(waktututup)){
+            pegawaiDb.delete(getPegawaiByNoPegawai(noPegawai));
+            return pegawai;
+        }
+        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isAfter(waktututup)){
             pegawaiDb.delete(getPegawaiByNoPegawai(noPegawai));
             return pegawai;
         }
