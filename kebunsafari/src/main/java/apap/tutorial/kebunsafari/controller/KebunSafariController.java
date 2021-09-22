@@ -70,11 +70,16 @@ public class KebunSafariController{
         //Mendapatkan Objek Kebun Safari sesuai dengan ID
         KebunSafariModel kebunSafari = kebunSafariService.getKebunSafariByIdKebunSafari(idKebunSafari);
 
-        //Menambahkan objek untuk dirender di Thymeleaf
-        model.addAttribute("kebunSafari", kebunSafari);
+        if(kebunSafari.getIdKebunSafari() == null){
+            return "kebun-tidak-ditemukan";
+        }
+        else{
+            //Menambahkan objek untuk dirender di Thymeleaf
+            model.addAttribute("kebunSafari", kebunSafari);
 
-        //Mereturn data
-        return "detail-kebun-safari";
+            //Mereturn data
+            return "detail-kebun-safari";
+        }
 
     }
 
@@ -84,15 +89,24 @@ public class KebunSafariController{
         @RequestParam(value= "noTelepon") String noTelepon,
         Model model){
 
-        // Memanggil KebunSafariService
-        kebunSafariService.updateKebunSafari(idKebunSafari, noTelepon);
+        //Mendapatkan Objek Kebun Safari sesuai dengan ID
+        KebunSafariModel kebunSafari = kebunSafariService.getKebunSafariByIdKebunSafari(idKebunSafari);
 
-        // Menambahkan variable KebunSafari ke "KebunSafari" untuk dirender ke Thymeleaf
-        model.addAttribute("id", idKebunSafari);
-        model.addAttribute("noTelepon", noTelepon);
+        if(kebunSafari.getIdKebunSafari() == null ){
+            return "kebun-tidak-ditemukan";
+        }
+        else{
+            // Memanggil KebunSafariService
+            kebunSafariService.updateKebunSafari(idKebunSafari, noTelepon);
 
-        //Mereturn data
-        return "view-kebun-safari-update";
+            // Menambahkan variable KebunSafari ke "KebunSafari" untuk dirender ke Thymeleaf
+            model.addAttribute("id", idKebunSafari);
+            model.addAttribute("noTelepon", noTelepon);
+
+            //Mereturn data
+            return "view-kebun-safari-update";
+        }
+
     }
 
     @RequestMapping("/kebun-safari/delete/{id}")
@@ -100,14 +114,24 @@ public class KebunSafariController{
             @PathVariable(value="id") String idKebunSafari,
             Model model){
 
-        //Memanggil KebunSafariService
-        kebunSafariService.deleteKebunSafari(idKebunSafari);
+        //Mendapatkan Objek Kebun Safari sesuai dengan ID
+        KebunSafariModel kebunSafari = kebunSafariService.getKebunSafariByIdKebunSafari(idKebunSafari);
 
-        //Menambahkan variable KebunSafari ke "Kebun Safari" untuk dirender pada Thymeleaf
-        model.addAttribute("id", idKebunSafari);
+        if(kebunSafari.getIdKebunSafari() == null ){
+            return "kebun-tidak-ditemukan";
+        }
+        else{
+            //Memanggil KebunSafariService
+            kebunSafariService.deleteKebunSafari(idKebunSafari);
 
-        // Mereturn data
-        return "view-kebun-safari-delete";
+
+            //Menambahkan variable KebunSafari ke "Kebun Safari" untuk dirender pada Thymeleaf
+            model.addAttribute("id", idKebunSafari);
+
+            // Mereturn data
+            return "view-kebun-safari-delete";
+        }
+
     }
 
 //    @RequestMapping("/kebun-safari/delete/all")
