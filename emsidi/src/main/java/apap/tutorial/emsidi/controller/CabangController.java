@@ -38,6 +38,10 @@ public class CabangController {
     @GetMapping("/cabang/viewall")
     public String listCabang(Model model){
         List<CabangModel> listCabang = cabangService.getCabangList();
+        if(listCabang.size() == 0){
+            model.addAttribute("message", "Ternyata tidak ada cabang yang terdaftar!");
+            return "tidak-bisa";
+        }
         model.addAttribute("listCabang", listCabang);
         return "viewall-cabang";
     }
@@ -55,12 +59,16 @@ public class CabangController {
             Model model
     ){
         CabangModel cabang = cabangService.getCabangByNoCabang(noCabang);
-        List<PegawaiModel> listPegawai = cabang.getListPegawai();
-
-        model.addAttribute("cabang", cabang);
-        model.addAttribute("listPegawai", listPegawai);
-
-        return "view-cabang";
+        if(cabang == null){
+            model.addAttribute("message", "No Cabang tidak ditemukan! Gagal melihat data.");
+            return "tidak-bisa";
+        }
+        else{
+            List<PegawaiModel> listPegawai = cabang.getListPegawai();
+            model.addAttribute("cabang", cabang);
+            model.addAttribute("listPegawai", listPegawai);
+            return "view-cabang";
+        }
     }
 
     @GetMapping("/cabang/update/{noCabang}")
@@ -69,6 +77,10 @@ public class CabangController {
             Model model
     ){
         CabangModel cabang = cabangService.getCabangByNoCabang(noCabang);
+        if(cabang == null){
+            model.addAttribute("message", "No Cabang tidak ditemukan! Gagal mengupdate data.");
+            return "tidak-bisa";
+        }
         model.addAttribute("cabang", cabang);
         return "form-update-cabang";
     }
@@ -88,13 +100,16 @@ public class CabangController {
             @PathVariable (value = "noCabang") Long noCabang,
             Model model
     ){
+        CabangModel cabang = cabangService.getCabangByNoCabang(noCabang);
         boolean success = cabangService.deleteCabang(noCabang);
-//        CabangModel cabang = cabangService.getCabangByNoCabang(noCabang)
-        if(!success){
-            System.out.println("masuk di sini");
-            return "tidak-bisa-delete-cabang";
+        if(cabang == null){
+            model.addAttribute("message", "No Cabang tidak ditemukan! Gagal mendelete data.");
+            return "tidak-bisa";
         }
-
+        if(!success){
+            model.addAttribute("message", "Cabang masih buka atau masih memiliki pegawai, gagal menghapus data cabang.");
+            return "tidak-bisa";
+        }
         else{
             model.addAttribute("noCabang", noCabang);
             return "delete-cabang";

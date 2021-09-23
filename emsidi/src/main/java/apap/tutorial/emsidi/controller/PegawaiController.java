@@ -43,17 +43,27 @@ public class PegawaiController {
         return "add-pegawai";
     }
 
-
     @GetMapping("/pegawai/update/{noCabang}/{noPegawai}")
     public String updatePegawaiForm(
             @PathVariable Long noCabang,
             @PathVariable long noPegawai,
             Model model
     ){
+        CabangModel cabang = cabangService.getCabangByNoCabang(noCabang);
         PegawaiModel pegawai = pegawaiService.getPegawaiByNoPegawai(noPegawai);
-        model.addAttribute("pegawai", pegawai);
-        model.addAttribute("noCabang", noCabang);
-        return "form-update-pegawai";
+        if(cabang == null){
+            model.addAttribute("message", "No Cabang tidak ditemukan! Gagal mengupdate data.");
+            return "tidak-bisa";
+        }
+        else if(pegawai == null){
+            model.addAttribute("message", "No Pegawai tidak ditemukan! Gagal mengupdate data.");
+            return "tidak-bisa";
+        }
+        else{
+            model.addAttribute("pegawai", pegawai);
+            model.addAttribute("noCabang", noCabang);
+            return "form-update-pegawai";
+        }
     }
 
     @PostMapping("/pegawai/update")
@@ -63,14 +73,13 @@ public class PegawaiController {
     ){
         PegawaiModel pegawai_ = pegawaiService.updatePegawai(pegawai);
         if(pegawai_ == null){
-            return "tidak-bisa-update";
+            model.addAttribute("message", "Cabang masih buka, gagal mengupdate data pegawai.");
+            return "tidak-bisa";
         }
-
         else{
             model.addAttribute("noPegawai", pegawai.getNoPegawai());
             return "update-pegawai";
         }
-
     }
 
     @GetMapping("/pegawai/viewall/{noCabang}")
@@ -78,10 +87,17 @@ public class PegawaiController {
             @PathVariable(value= "noCabang") Long noCabang,
             Model model){
 
-        List<PegawaiModel> listPegawaibyNoCabang = pegawaiService.getPegawaiListByNoCabang(noCabang);
-        model.addAttribute("listPegawaiByNoCabang", listPegawaibyNoCabang);
-        model.addAttribute("noCabang", noCabang);
-        return "viewall-pegawai";
+        CabangModel cabang = cabangService.getCabangByNoCabang(noCabang);
+        if(cabang == null){
+            model.addAttribute("message", "No Cabang Tidak Ditemukan! Gagal menampilkan data.");
+            return "tidak-bisa";
+        }
+        else{
+            List<PegawaiModel> listPegawaibyNoCabang = pegawaiService.getPegawaiListByNoCabang(noCabang);
+            model.addAttribute("listPegawaiByNoCabang", listPegawaibyNoCabang);
+            model.addAttribute("noCabang", noCabang);
+            return "viewall-pegawai";
+        }
     }
 
     @GetMapping("/pegawai/view/noCabang/{noCabang}/noPegawai/{noPegawai}")
@@ -90,14 +106,23 @@ public class PegawaiController {
             @PathVariable(value = "noPegawai") long noPegawai,
             Model model
     ){
+
         CabangModel cabang = cabangService.getCabangByNoCabang(noCabang);
-        List<PegawaiModel> listPegawai = cabang.getListPegawai();
+        PegawaiModel pegawai = pegawaiService.getPegawaiByNoPegawai(noPegawai);
+        if(cabang == null){
+            model.addAttribute("message", "No Cabang tidak ditemukan! Gagal menampilkan data.");
+            return "tidak-bisa";
+        }
+        else if(pegawai == null){
+            model.addAttribute("message", "No Pegawai tidak ditemukan! Gagal menampilkan data.");
+            return "tidak-bisa";
+        }
+        else{
+            model.addAttribute("noCabang", noCabang);
+            model.addAttribute("pegawai", pegawai);
+            return "view-pegawai";
+        }
 
-        model.addAttribute("noCabang", noCabang);
-        model.addAttribute("noPegawai", noPegawai);
-        model.addAttribute("listPegawai", listPegawai);
-
-        return "view-pegawai";
     }
 
     @GetMapping("/pegawai/delete/{noPegawai}")
@@ -105,18 +130,14 @@ public class PegawaiController {
             @PathVariable (value = "noPegawai") long noPegawai,
             Model model
     ){
-
         PegawaiModel pegawai_ = pegawaiService.deletePegawai(noPegawai);
         if(pegawai_ == null){
-            return "tidak-bisa-delete";
+            model.addAttribute("message", "Cabang pegawai bekerja masih buka, gagal menghapus data pegawai.");
+            return "tidak-bisa";
         }
-
         else{
             model.addAttribute("noPegawai", pegawai_.getNoPegawai());
             return "delete-pegawai";
         }
     }
-
-
-
 }

@@ -46,7 +46,7 @@ public class PegawaiServiceImpl implements PegawaiService {
     public List<PegawaiModel> getPegawaiListByNoCabang(Long noCabang) {
         List<PegawaiModel> listPegawai = getPegawaiList();
         List<PegawaiModel> listPegawaiByNoCabang = pegawaiDb.findAll();
-        listPegawaiByNoCabang.clear()   ;
+        listPegawaiByNoCabang.clear();
 
         for(PegawaiModel i : listPegawai){
             if(i.getCabang().getNoCabang().equals(noCabang)){
@@ -59,25 +59,32 @@ public class PegawaiServiceImpl implements PegawaiService {
     @Override
     public PegawaiModel updatePegawai(PegawaiModel pegawai){
         PegawaiModel pegawai_ = null;
+
         //Dapatkan waktubuka dan tutup dari cabang pegawai
         LocalTime waktubuka = pegawai.getCabang().getWaktuBuka();
         LocalTime waktututup = pegawai.getCabang().getWaktuTutup();
 
+        PegawaiModel pegawai2 = getPegawaiByNoPegawai(pegawai.getNoPegawai());
+
         //apabila hanya melibatkan 1 hari yang sama untuk operasionalnya
         if(waktubuka.compareTo(waktututup) < 0) {
             if (LocalTime.now().isAfter(waktubuka) && LocalTime.now().isAfter(waktututup)) {
+                pegawai2.setCabang(pegawai.getCabang());
                 pegawaiDb.save(pegawai);
+
                 return pegawai;
             }
             else if (LocalTime.now().isBefore(waktubuka) && LocalTime.now().isBefore(waktututup)) {
+                pegawai2.setCabang(pegawai.getCabang());
                 pegawaiDb.save(pegawai);
                 return pegawai;
             }
         }
 
         //apabila operasional nya melibatkan pergantian hari
-        else if(waktubuka.compareTo(waktututup) >0) {
+        else if(waktubuka.compareTo(waktututup) > 0) {
             if (LocalTime.now().isBefore(waktubuka) && LocalTime.now().isAfter(waktututup)) {
+                pegawai2.setCabang(pegawai.getCabang());
                 pegawaiDb.save(pegawai);
                 return pegawai;
             }

@@ -14,12 +14,13 @@
             <div class="justify-content-center">
                 <h2>Detail Pegawai</h2>
                 <br>
+                <p th:text="'No Pegawai : ' + ${pegawai.noPegawai}"></p>
                 <p th:text="'Nama : ' + ${pegawai.namaPegawai}"></p>
                 <p th:if="${pegawai.jenisKelamin == 0}">Jenis Kelamin : Perempuan</p>
                 <p th:if="${pegawai.jenisKelamin == 1}">Jenis Kelamin : Laki-laki</p>
                 <p th:text="'Cabang : ' + ${pegawai.cabang.noCabang}"></p>
                 <br>
-                <a class="btn btn-primary" th:href=@{/pegawai/view/(noCabang=${cabang.noCabang})}">Update Pegawai</a>
+                <a class="btn btn-primary" th:href="@{/pegawai/update/} + ${pegawai.cabang.noCabang} + '/' + ${pegawai.noPegawai}">Update Pegawai</a>
             </div>
         </div>
     </div>

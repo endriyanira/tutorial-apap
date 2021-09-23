@@ -14,13 +14,13 @@
     <div th:each="pegawai : ${listPegawaiByNoCabang}" class="card m-4 p-4">
         <div class="card-body">
             <div class="justify-content-center">
+                <p th:text="'No Pegawai : ' + ${pegawai.noPegawai}"></p>
                 <p th:text="'Nama : ' + ${pegawai.namaPegawai}"></p>
                 <p th:if="${pegawai.jenisKelamin == 0}">Jenis Kelamin : Perempuan</p>
                 <p th:if="${pegawai.jenisKelamin == 1}">Jenis Kelamin : Laki-laki</p>
                 <p th:text="'Cabang : ' + ${pegawai.cabang.noCabang}"></p>
                 <br>
-                "/pegawai/view/noCabang/{noCabang}/noPegawai/{noPegawai}"
-                <a class="btn btn-warning" th:href="@{/pegawai/view/noCabang/} +'/' + ${pegawai.cabang.noCabang} + '/noPegawai/' + ${pegawai.noPegawai}">Lihat Detail
+                <a class="btn btn-warning" th:href="@{/pegawai/view/noCabang/} + ${pegawai.cabang.noCabang} + '/noPegawai/' + ${pegawai.noPegawai}">Lihat Detail
                     Pegawai</a>
                 <a class="btn btn-primary" th:href="@{/pegawai/update/} + ${pegawai.cabang.noCabang} + '/' + ${pegawai.noPegawai}">Update Pegawai</a>
                 <a class="btn btn-danger" th:href="@{/pegawai/delete/} + ${pegawai.noPegawai}">Delete Pegawai</a>
