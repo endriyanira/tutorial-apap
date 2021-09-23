@@ -63,18 +63,26 @@ public class PegawaiServiceImpl implements PegawaiService {
         LocalTime waktubuka = pegawai.getCabang().getWaktuBuka();
         LocalTime waktututup = pegawai.getCabang().getWaktuTutup();
 
-        if(LocalTime.now().isAfter(waktubuka) && LocalTime.now().isAfter(waktututup)){
-            pegawaiDb.save(pegawai);
-            return pegawai;
+        //apabila hanya melibatkan 1 hari yang sama untuk operasionalnya
+        if(waktubuka.compareTo(waktututup) < 0) {
+            if (LocalTime.now().isAfter(waktubuka) && LocalTime.now().isAfter(waktututup)) {
+                pegawaiDb.save(pegawai);
+                return pegawai;
+            }
+            else if (LocalTime.now().isBefore(waktubuka) && LocalTime.now().isBefore(waktututup)) {
+                pegawaiDb.save(pegawai);
+                return pegawai;
+            }
         }
-        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isBefore(waktututup)){
-            pegawaiDb.save(pegawai);
-            return pegawai;
+
+        //apabila operasional nya melibatkan pergantian hari
+        else if(waktubuka.compareTo(waktututup) >0) {
+            if (LocalTime.now().isBefore(waktubuka) && LocalTime.now().isAfter(waktututup)) {
+                pegawaiDb.save(pegawai);
+                return pegawai;
+            }
         }
-        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isAfter(waktututup)){
-            pegawaiDb.save(pegawai);
-            return pegawai;
-        }
+
         return pegawai_;
     }
 
@@ -87,18 +95,26 @@ public class PegawaiServiceImpl implements PegawaiService {
         LocalTime waktubuka = getPegawaiByNoPegawai(noPegawai).getCabang().getWaktuBuka();
         LocalTime waktututup = getPegawaiByNoPegawai(noPegawai).getCabang().getWaktuTutup();
 
-        if(LocalTime.now().isAfter(waktubuka) && LocalTime.now().isAfter(waktututup)){
-            pegawaiDb.delete(getPegawaiByNoPegawai(noPegawai));
-            return pegawai;
+        //apabila hanya melibatkan 1 hari yang sama untuk operasionalnya
+        if(waktubuka.compareTo(waktututup) < 0) {
+            if (LocalTime.now().isAfter(waktubuka) && LocalTime.now().isAfter(waktututup)) {
+                pegawaiDb.delete(getPegawaiByNoPegawai(noPegawai));
+                return pegawai;
+            }
+            else if (LocalTime.now().isBefore(waktubuka) && LocalTime.now().isBefore(waktututup)) {
+                pegawaiDb.delete(getPegawaiByNoPegawai(noPegawai));
+                return pegawai;
+            }
         }
-        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isBefore(waktututup)){
-            pegawaiDb.delete(getPegawaiByNoPegawai(noPegawai));
-            return pegawai;
+
+        //apabila operasional nya melibatkan pergantian hari
+        else if(waktubuka.compareTo(waktututup) >0) {
+            if (LocalTime.now().isBefore(waktubuka) && LocalTime.now().isAfter(waktututup)) {
+                pegawaiDb.delete(getPegawaiByNoPegawai(noPegawai));
+                return pegawai;
+            }
         }
-        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isAfter(waktututup)){
-            pegawaiDb.delete(getPegawaiByNoPegawai(noPegawai));
-            return pegawai;
-        }
+
         return pegawai_;
     }
 }

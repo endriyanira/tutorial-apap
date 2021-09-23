@@ -56,19 +56,23 @@ public class CabangServiceImpl implements CabangService{
         LocalTime waktubuka = cabang_.getWaktuBuka();
         LocalTime waktututup = cabang_.getWaktuTutup();
 
-        if(LocalTime.now().isAfter(waktubuka) && LocalTime.now().isAfter(waktututup)){
+        //apabila hanya melibatkan 1 hari yang sama untuk operasionalnya
+        if(waktubuka.compareTo(waktututup) < 0) {
+            if (LocalTime.now().isBefore(waktubuka) && LocalTime.now().isBefore(waktututup)){
+                return true;
+            }
+            else if (LocalTime.now().isAfter(waktubuka) && LocalTime.now().isAfter(waktututup)){
+                return true;
+            }
+        }
 
-            return true;
+        //apabila operasional nya melibatkan pergantian hari
+        else if(waktubuka.compareTo(waktututup) >0) {
+            if (LocalTime.now().isBefore(waktubuka) && LocalTime.now().isAfter(waktututup)){
+                return true;
+            }
         }
-        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isBefore(waktututup)){
-            return true;
-        }
-        if(LocalTime.now().isBefore(waktubuka) && LocalTime.now().isAfter(waktututup)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return false;
 
     }
 
