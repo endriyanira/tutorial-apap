@@ -19,7 +19,9 @@
                 <p th:if="${pegawai.jenisKelamin == 1}">Jenis Kelamin : Laki-laki</p>
                 <p th:text="'Cabang : ' + ${pegawai.cabang.noCabang}"></p>
                 <br>
-<!--                <a class="btn btn-primary" th:href="@{/pegawai/view/noCabang/} + ${pegawai.cabang.noCabang} + '/noPegawai/' + ${pegawai.noPegawai}">Lihat Detail Pegawai</a>-->
+                "/pegawai/view/noCabang/{noCabang}/noPegawai/{noPegawai}"
+                <a class="btn btn-warning" th:href="@{/pegawai/view/noCabang/} +'/' + ${pegawai.cabang.noCabang} + '/noPegawai/' + ${pegawai.noPegawai}">Lihat Detail
+                    Pegawai</a>
                 <a class="btn btn-primary" th:href="@{/pegawai/update/} + ${pegawai.cabang.noCabang} + '/' + ${pegawai.noPegawai}">Update Pegawai</a>
                 <a class="btn btn-danger" th:href="@{/pegawai/delete/} + ${pegawai.noPegawai}">Delete Pegawai</a>
 

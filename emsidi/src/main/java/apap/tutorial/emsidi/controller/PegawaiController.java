@@ -79,7 +79,6 @@ public class PegawaiController {
             Model model){
 
         List<PegawaiModel> listPegawaibyNoCabang = pegawaiService.getPegawaiListByNoCabang(noCabang);
-//        System.out.println(listPegawaibyNoCabang.size());
         model.addAttribute("listPegawaiByNoCabang", listPegawaibyNoCabang);
         model.addAttribute("noCabang", noCabang);
         return "viewall-pegawai";
@@ -109,7 +108,6 @@ public class PegawaiController {
 
         PegawaiModel pegawai_ = pegawaiService.deletePegawai(noPegawai);
         if(pegawai_ == null){
-//            System.out.println("masuk di sini");
             return "tidak-bisa-delete";
         }
 
