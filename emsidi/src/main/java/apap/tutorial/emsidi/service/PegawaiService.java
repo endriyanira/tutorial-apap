@@ -6,7 +6,7 @@ import apap.tutorial.emsidi.model.PegawaiModel;
 import java.util.List;
 
 public interface PegawaiService {
-    void addPegawai(PegawaiModel pegawai);
+    boolean addPegawai(PegawaiModel pegawai);
 
     PegawaiModel getPegawaiByNoPegawai(long pegawai);
 

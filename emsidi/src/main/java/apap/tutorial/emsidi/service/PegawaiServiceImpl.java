@@ -22,8 +22,25 @@ public class PegawaiServiceImpl implements PegawaiService {
     PegawaiDb pegawaiDb;
 
     @Override
-    public void addPegawai(PegawaiModel pegawai){
+    public boolean addPegawai(PegawaiModel pegawai){
+        List<PegawaiModel>  listPegawai = getPegawaiList();
+        for (PegawaiModel i : listPegawai){
+            if(i.getNamaPegawai().equals(pegawai.getNamaPegawai())){
+                return false;
+            }
+        }
         pegawaiDb.save(pegawai);
+        return true;
+//        PegawaiModel pegawai2 = getPegawaiByNoPegawai(pegawai.getNoPegawai());
+//        if(pegawai2 == null){
+//            return false;
+//        }
+//        else{
+//            pegawaiDb.save(pegawai);
+//            return true;
+//        }
+
+
     }
 
     @Override

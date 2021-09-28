@@ -37,10 +37,19 @@ public class PegawaiController {
             @ModelAttribute PegawaiModel pegawai,
             Model model
     ){
-        pegawaiService.addPegawai(pegawai);
-        model.addAttribute("noCabang", pegawai.getCabang().getNoCabang());
-        model.addAttribute("namaPegawai", pegawai.getNamaPegawai());
-        return "add-pegawai";
+        boolean success = pegawaiService.addPegawai(pegawai);
+        if(!success){
+            model.addAttribute("message", "Gagal menambahkan data pegawai, karena nama Pegawai sudah terdaftar");
+            return "tidak-bisa";
+        }
+        else{
+            pegawaiService.addPegawai(pegawai);
+            model.addAttribute("noCabang", pegawai.getCabang().getNoCabang());
+            model.addAttribute("namaPegawai", pegawai.getNamaPegawai());
+            return "add-pegawai";
+
+        }
+
     }
 
     @GetMapping("/pegawai/update/{noCabang}/{noPegawai}")
