@@ -19,23 +19,23 @@
                 <div>
                     <form th:action="@{/cabang/add}" th:object="${cabang}" method="POST">
                         Nama Cabang : <br>
-                        <input class="form-control" type="text" name="namaCabang"/>
+                        <input required class="form-control" type="text" name="namaCabang"/>
                         <br><br>
 
                         Alamat : <br>
-                        <input class="form-control" type="text" name="alamatCabang"/>
+                        <input required class="form-control" type="text" name="alamatCabang"/>
                         <br><br>
 
                         Nomor Telepon : <br>
-                        <input class="form-control" type="text" name="noTeleponCabang"/>
+                        <input required class="form-control" type="text" name="noTeleponCabang"/>
                         <br><br>
 
                         Waktu Buka : <br>
-                        <input class="form-control" type="time" name="waktuBuka" />
+                        <input required class="form-control" type="time" name="waktuBuka" />
                         <br><br>
 
                         Waktu Tutup : <br>
-                        <input class="form-control" type="time" name="waktuTutup" />
+                        <input required class="form-control" type="time" name="waktuTutup" />
                         <br><br>
 
                         <table class="table">
@@ -50,7 +50,7 @@
                             <tbody>
                             <tr th:each="menu, iterationStatus : *{listMenu}">
                                 <td>
-                                    <select class="form-control"  name = "hapus" th:field="*{ListMenu[__${iterationStatus.index}__].noMenu}">
+                                    <select class="form-control" th:field="*{ListMenu[__${iterationStatus.index}__].noMenu}">
                                         <option th:each="mn : ${listMenuSatunya}"
                                                 th:value="${mn.noMenu}"
                                                 th:text="${mn.namaMenu}"
