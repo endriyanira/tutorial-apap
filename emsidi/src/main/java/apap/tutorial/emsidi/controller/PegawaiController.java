@@ -147,17 +147,17 @@ public class PegawaiController {
             @ModelAttribute CabangModel cabang,
             Model model
     ){
-            List<PegawaiModel> list = cabang.getListPegawai();
-            Long noCabang = cabang.getNoCabang();
+        List<PegawaiModel> list = cabang.getListPegawai();
+        Long noCabang = cabang.getNoCabang();
 
-            for(PegawaiModel pegawai : list){
-                PegawaiModel pegawai_ = pegawaiService.deletePegawai(pegawai.getNoPegawai());
-                  if(pegawai_ == null){
-                      model.addAttribute("message", "Error cannot delete");
-                      return "tidak-ada";
-                  }
-              }
-            return "delete-pegawai";
+        for(PegawaiModel pegawai : list){
+            PegawaiModel pegawai_ = pegawaiService.deletePegawai(pegawai.getNoPegawai());
+            if(pegawai_ == null){
+                model.addAttribute("message", "Error cannot delete");
+                return "tidak-ada";
+            }
+        }
+        return "delete-pegawai";
 
     }
 }
