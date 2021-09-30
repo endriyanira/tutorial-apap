@@ -19,23 +19,23 @@
                 <div>
                     <form th:action="@{/cabang/add}" th:object="${cabang}" method="POST">
                         Nama Cabang : <br>
-                        <input required class="form-control" type="text" name="namaCabang"/>
+                        <input required th:field="*{namaCabang}" class="form-control" type="text" name="namaCabang"/>
                         <br><br>
 
                         Alamat : <br>
-                        <input required class="form-control" type="text" name="alamatCabang"/>
+                        <input required th:field="*{alamatCabang}" class="form-control" type="text" name="alamatCabang"/>
                         <br><br>
 
                         Nomor Telepon : <br>
-                        <input required class="form-control" type="text" name="noTeleponCabang"/>
+                        <input required th:field="*{noTeleponCabang}" class="form-control" type="text" name="noTeleponCabang"/>
                         <br><br>
 
                         Waktu Buka : <br>
-                        <input required class="form-control" type="time" name="waktuBuka" />
+                        <input required th:field="*{waktuBuka}" class="form-control" type="time" name="waktuBuka" />
                         <br><br>
 
                         Waktu Tutup : <br>
-                        <input required class="form-control" type="time" name="waktuTutup" />
+                        <input required th:field="*{waktuTutup}" class="form-control" type="time" name="waktuTutup" />
                         <br><br>
 
                         <table class="table">
