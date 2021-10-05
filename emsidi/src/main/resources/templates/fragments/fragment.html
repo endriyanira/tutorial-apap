@@ -51,5 +51,17 @@
         </form>
     </div>
 </nav>
+<footer th:fragment="footer(page)">
+    <a>Author: Endriyani Rahayu</a>
+    <div th:if="${page == 'Home'}" th:classappend="${page == 'Home'} ? active : ''">
+        <a>Home</a>
+    </div>
+    <div th:if="${page == 'Cabang'}" th:classappend="${page == 'Cabang'} ? active : ''">
+        <a>Cabang</a>
+    </div>
+    <div th:if="${page == 'Menu'}" th:classappend="${page == 'Menu'} ? active : ''">
+        <a>Menu</a>
+    </div>
+</footer>
 </body>
 </html>
