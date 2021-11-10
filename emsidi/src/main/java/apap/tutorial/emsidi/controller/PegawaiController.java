@@ -4,12 +4,14 @@ import apap.tutorial.emsidi.model.CabangModel;
 import apap.tutorial.emsidi.model.PegawaiModel;
 import apap.tutorial.emsidi.service.CabangService;
 import apap.tutorial.emsidi.service.PegawaiService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Controller
@@ -136,8 +138,26 @@ public class PegawaiController {
             return "tidak-bisa";
         }
         else{
-            model.addAttribute("noPegawai", pegawai_.getNoPegawai());
+            model.addAttribute("noPegawai", pegawai_.getNamaPegawai());
             return "delete-pegawai";
         }
+    }
+    @PostMapping("/pegawai/delete")
+    public String deletePegawaiSubmit(
+            @ModelAttribute CabangModel cabang,
+            Model model
+    ){
+        List<PegawaiModel> list = cabang.getListPegawai();
+        Long noCabang = cabang.getNoCabang();
+
+        for(PegawaiModel pegawai : list){
+            PegawaiModel pegawai_ = pegawaiService.deletePegawai(pegawai.getNoPegawai());
+            if(pegawai_ == null){
+                model.addAttribute("message", "Error cannot delete");
+                return "tidak-ada";
+            }
+        }
+        return "delete-pegawai";
+
     }
 }
