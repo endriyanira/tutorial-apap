@@ -111,6 +111,21 @@ public class PegawaiRestController {
 
     }
 
+    @GetMapping(value="pegawai/nama/{hurufdepan}")
+    private List<PegawaiModel> filterNamaPegawai(
+            @PathVariable ("hurufdepan") String hurufdepan)
+    {
+        List<PegawaiModel> data = new ArrayList<>();
+        List<PegawaiModel> listPegawai = pegawaiRestService.retrieveListPegawai();
+        for (PegawaiModel pegawai : listPegawai){
+            String namaPegawai = pegawai.getNamaPegawai();
+            if(namaPegawai.substring(0,1).equals(hurufdepan)){
+                data.add(pegawai);
+            }
+        }
+        return data;
+    }
+
 
 
 
