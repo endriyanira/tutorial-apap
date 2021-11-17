@@ -24,11 +24,12 @@
             <div class="my-3 d-flex justify-content-center">
                 <a th:href="@{/user/add}" class="mx-2 btn btn-outline-dark">Tambah User Baru</a>
             </div>
-            <div th:if="*{listUser.size() != 0}">
+            <div style="overflow:auto" th:if="*{listUser.size() != 0}">
                 <table class="table">
                     <thead>
                     <tr>
                         <th>No</th>
+                        <th>Id</th>
                         <th>Username</th>
                         <th>Password</th>
                         <th>Nama</th>
@@ -42,6 +43,7 @@
                     <tr th:each="user, iterationStatus : ${listUser}"
                         th:style="${iterationStatus.even} ? 'font-weight:bold;'">
                         <td th:text="${iterationStatus.count}"></td>
+                        <td th:text="${user.id}"></td>
                         <td th:text="${user.username}"></td>
                         <td th:text="${user.password}"></td>
                         <td th:text="${user.nama}"></td>
