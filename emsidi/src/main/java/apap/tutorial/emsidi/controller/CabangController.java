@@ -143,7 +143,7 @@ public class CabangController {
     }
 
     @GetMapping("/cabang/delete/{noCabang}")
-    public String deletePegawaiByNoPegawai(
+    public String deleteCabangByNoCabang(
             @PathVariable (value = "noCabang") Long noCabang,
             Model model
     ){
