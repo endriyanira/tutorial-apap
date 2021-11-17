@@ -39,7 +39,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void updatePassword(UserModel user, String newPass) {
-        UserModel userTarget = userDb.findByUsername(user.getUsername());
         user.setPassword(encrypt(newPass));
         userDb.save(user);
     }
