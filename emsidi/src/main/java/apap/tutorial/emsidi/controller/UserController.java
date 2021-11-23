@@ -76,7 +76,11 @@ public class UserController {
     ){
         UserModel user = userService.getUserByUsername(username);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        if(encoder.matches(oldPass, user.getPassword())){
+        if(encoder.matches(newPass, user.getPassword())){
+            System.out.println("password lama dan baru sama");
+            model.addAttribute("teks", "Password baru tidak boleh sama dengan passwordlama");
+        }
+        else if(encoder.matches(oldPass, user.getPassword())){
             if(newPass.equals(confirmPass)){
                 userService.updatePassword(user, newPass);
                 model.addAttribute("teks","Password berhasil diubah");
