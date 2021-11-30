@@ -72,11 +72,17 @@ export default class Home extends React.Component {
         tempShopItems[targetInd].inCart = inCart;
         this.setState({ shopItems: tempShopItems });
         };
+        
+    darkMode(){
+        const element = document.body;
+        element.classList.toggle("dark-mode")
+    }
 
     
     render() {
         return (
         <div className="container-fluid">
+            <button onClick={this.darkMode}>Change Mode</button>
             <h1 className="text-center mt-3 mb-0">Mini Commerce</h1>
             <div style={{ position: "fixed", top: 25, right: 25 }}>
             <Fab variant="extended" onClick={this.handleToggle}>
