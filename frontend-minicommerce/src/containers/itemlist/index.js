@@ -4,12 +4,11 @@ import Search from "../../components/search";
 import classes from "./styles.module.css";
 import APIConfig from "../../api/APIConfig";
 import Button from "../../components/button";
-import Form from "../../components/form";
 import Modal from "../../components/modal";
-import Badge from "@material-ui/core/Badge";
+// import Badge from "@material-ui/core/Badge";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Fab } from "@material-ui/core";
-import ViewStreamIcon from '@mui/icons-material/ViewStream';
+// import ViewStreamIcon from '@mui/icons-material/ViewStream';
 import List from "../../components/List/index";
 
 class ItemList extends Component{
@@ -24,7 +23,7 @@ class ItemList extends Component{
             isCreate: false,
             isEdit: false,
             isSearch: false,
-            inCart: 0,
+            stok:0,
             id: "",
             title: "",
             price: 0,
@@ -177,6 +176,8 @@ class ItemList extends Component{
         this.setState({ cartHidden: !cartHidden });
     };
 
+
+
     handleMelebihiStokItem =  (qty) => {
         this.state.quantity -= qty;
         if(this.state.quantity < 0){
@@ -195,7 +196,7 @@ class ItemList extends Component{
     // };
     
 
-    handleAddItemToCart = (item) => {
+    handleAddItemToCart(item){
         console.log(item);
         console.log("item");
         const stokCukup = this.handleMelebihiStokItem(item.quantity);
@@ -221,16 +222,7 @@ render() {
         <div className={classes.itemList}>
             <div style={{ position: "fixed", top: 25, right: 25 }}>
                 <Fab variant="extended" onClick={this.handleToggle}>
-                    {this.state.cartHidden ? (
-                    <Badge
-                        color="secondary"
-                        badgeContent={this.state.cartItems.length}
-                    >
                         <ShoppingCartIcon />
-                    </Badge>
-                    ) : (
-                    <ViewStreamIcon />
-                    )}
                 </Fab>
             </div>
             <br>
@@ -268,7 +260,7 @@ render() {
                                 quantity={item.quantity}
                                 handleEdit={ () => this.handleEditItem(item)}
                                 handleDelete={() => this.handleSubmitDeleteItem(item.id)}
-                                handleAddToCart={() => this.handleAddItemToCart(item)}
+                                handleAddToCart={() => this.handleAddItemToCart(item.stok)}
                                 />
                             ))}
                         </div>

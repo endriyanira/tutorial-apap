@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Layout from "./components/layout";
-import Search from "./components/search"
 import ItemList from "./containers/itemlist";
 class App extends Component {
   render() {

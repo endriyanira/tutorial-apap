@@ -1,8 +1,6 @@
 import React from "react";
 import Button from "../button";
 import classes from "./styles.module.css";
-import Search from "../../components/search";
-import Form from "../../components/form";
 // import ItemList from "../../containers/itemlist";
 
 const Item = (props) => {
@@ -18,13 +16,19 @@ const Item = (props) => {
             <p>{`stok: ${quantity}`}</p>
             <Button action={handleEdit}>Edit</Button>
             <Button action={handleDelete}>Delete</Button>
-            <div className="row p-10">
-                <Form></Form>
+                <form className="form-inline align-self-center">
+                    <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Masukan Jumlah Stok"
+                        name="stok"
+                        value={stok}
+                        onChange={handleChangeField}
+                    />
+                    <Button action={handleAddToCart}>Add To Cart</Button>
+                </form>
             
-            <Button action={handleAddToCart}>Add To Cart</Button>
-
             </div>
-        </div>
     );
 };
 export default Item;
