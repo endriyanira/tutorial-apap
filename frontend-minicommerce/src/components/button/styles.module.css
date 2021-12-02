@@ -1,0 +1,42 @@
+.button {
+    border-radius: 5px;
+    padding:  8px 16px;
+    border: 1px solid white;
+    color: #ce3434;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.button-delete {
+    border-radius: 5px;
+    padding:  8px 16px;
+    border: 1px solid white;
+    color: red;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.button:hover {
+    opacity: 0.9;
+}
+
+.primary {
+    background-color: #346cce;
+}
+
+.success {
+    background-color: #2fb851;
+}
+
+.danger {
+    background-color: #ce3434;
+}
+
+.buttonadd{
+    border-radius: 5px;
+    padding:  8px 16px;
+    border: 1px solid white;
+    color: #2fb851;
+    cursor: pointer;
+    font-weight: bold;
+}
